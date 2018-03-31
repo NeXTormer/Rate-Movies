@@ -1,17 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SingleMovie"
     tools:showIn="@layout/activity_single_movie">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.v4.widget.NestedScrollView>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text='Investition in die Zukunft - Jungfamilie Knapp ist begeistert von umweltfreundlicher Energiegewinnung. Waltraud und Josef Knapp und ihr Töchterchen Elena können nun – nach vielen langen Jahren auf Saison am Arlberg – voller Stolz ihr Leben im Eigenheim genießen. 1996 begannen sie mit dem Hausbau in St. Thomas am Zeiselsberg nördlich von Klagenfurt, und Schritt für Schritt wurde das Haus fertig gestellt. In den ersten Jahren heizten sie noch mit Öl, doch die Verknappung der Ressourcen und die unsicheren Preise auf dem Ölmarkt veranlassten Josef Knapp, sich für eine Alternative einzusetzen. Die Familie entschied sich für eine Wärmepumpe und 60 m² Solarzellen. Für die Umsetzung zeichnete das kompetente Team von Werner Findenig verantwortlich. "Ich bin jetzt richtig glücklich über die neue Heizung", schwärmt Waltraud Knapp. "Solar- und Bioenergie sind eine Investition in die Zukunft!" Herr Knapp protokolliert den genauen Verbrauch seiner Anlage und konnte feststellen, dass sich die Heizkosten um die Hälfte reduzierten. So kann auch der Pool ohne größere Mehrkosten angenehm mitbeheizt werden. Die außergewöhnliche Anbringung der Solarzellen ergab sich aus dem bereits vorhandenen Vordach. Beim Hausbau wurden schon von Beginn an alle erforderlichen Leitungen für eine eventuelle Umrüstung auf Solarenergie eingeplant und vorbereitet.  Investition in die Zukunft - Jungfamilie Knapp ist begeistert von umweltfreundlicher Energiegewinnung. Waltraud und Josef Knapp und ihr Töchterchen Elena können nun – nach vielen langen Jahren auf Saison am Arlberg – voller Stolz ihr Leben im Eigenheim genießen. 1996 begannen sie mit dem Hausbau in St. Thomas am Zeiselsberg nördlich von Klagenfurt, und Schritt für Schritt wurde das Haus fertig gestellt. In den ersten Jahren heizten sie noch mit Öl, doch die Verknappung der Ressourcen und die unsicheren Preise auf dem Ölmarkt veranlassten Josef Knapp, sich für eine Alternative einzusetzen. Die Familie entschied sich für eine Wärmepumpe und 60 m² Solarzellen. Für die Umsetzung zeichnete das kompetente Team von Werner Findenig verantwortlich. "Ich bin jetzt richtig glücklich über die neue Heizung", schwärmt Waltraud Knapp. "Solar- und Bioenergie sind eine Investition in die Zukunft!" Herr Knapp protokolliert den genauen Verbrauch seiner Anlage und konnte feststellen, dass sich die Heizkosten um die Hälfte reduzierten. So kann auch der Pool ohne größere Mehrkosten angenehm mitbeheizt werden. Die außergewöhnliche Anbringung der Solarzellen ergab sich aus dem bereits vorhandenen Vordach. Beim Hausbau wurden schon von Beginn an alle erforderlichen Leitungen für eine eventuelle Umrüstung auf Solarenergie eingeplant und vorbereitet.  '
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="209dp"
+                android:layout_height="141dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="8dp"
+                android:text="schubwerner"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

@@ -15,12 +15,6 @@ public class MovieItem
     public String info;
     public String image;
 
-    private String viewdate;
-
-    private int IMDBScore;
-    private int userScore;
-
-
     public MovieItem(String title, String genre, String date, String info, String image)
     {
         this.title = title;
