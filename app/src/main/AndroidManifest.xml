@@ -27,6 +27,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.holz.ratemovies.MainView" />
         </activity>
+        <activity
+            android:name=".AddRatingView"
+            android:label="@string/title_activity_add_rating_view"
+            android:parentActivityName=".SingleMovie"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.holz.ratemovies.SingleMovie" />
+        </activity>
     </application>
 
 </manifest>
