@@ -7,12 +7,17 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import java.sql.SQLOutput;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import me.holz.ratemovies.util.loadJSON;
 
 public class MainView extends AppCompatActivity {
 
@@ -50,8 +55,41 @@ public class MainView extends AppCompatActivity {
             }
         }));
 
-        prepareMovieData();
+        loadMovieDataFormServer();
     }
+
+    private void loadMovieDataFormServer()
+    {
+        try
+        {
+            loadJSON lj = new loadJSON("http://faoiltiarna.ddns.net:4443/ratemovies/movielist");
+            lj.thread.start();
+            lj.thread.join();
+            String jsonraw = lj.result;
+
+            System.out.println(jsonraw);
+            JSONArray ja = new JSONArray(jsonraw);
+            for(int i = 0; i < ja.length(); i++)
+            {
+                JSONObject jo = ja.getJSONObject(i);
+                String title = jo.getString("title");
+                String genres = jo.getString("genres");
+                String releasedate = jo.getString("releasedate");
+                String info = jo.getString("info");
+                String infolong = jo.getString("infolong");
+                String image = jo.getString("image");
+
+                movieList.add(new MovieItem(title, genres, releasedate, info, image));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        mAdapter.notifyDataSetChanged();
+    }
+
 
     private void prepareMovieData() {
         MovieItem movie = new MovieItem("Mad Max: Fury Road", "Action & Adventure", "2015", "schub", "https://upload.wikimedia.org/wikipedia/commons/f/fb/Mad_Max_Fury_Road_film_Logo.png");
@@ -104,4 +142,5 @@ public class MainView extends AppCompatActivity {
 
         mAdapter.notifyDataSetChanged();
     }
+
 }
