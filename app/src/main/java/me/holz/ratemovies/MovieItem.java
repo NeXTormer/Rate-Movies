@@ -15,7 +15,9 @@ public class MovieItem
     public String info;
     public String image;
 
-    public MovieItem(String title, String genre, String date, String info, String image)
+    public String infolong;
+
+    public MovieItem(String title, String genre, String date, String info, String image, String infolong)
     {
         this.title = title;
         this.genre = genre;
@@ -23,6 +25,8 @@ public class MovieItem
         this.info = info;
 
         this.image = image;
+
+        this.infolong = infolong;
     }
 
 }

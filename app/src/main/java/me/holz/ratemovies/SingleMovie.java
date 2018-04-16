@@ -6,7 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 public class SingleMovie extends AppCompatActivity {
 
@@ -17,6 +24,14 @@ public class SingleMovie extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(getIntent().getExtras().getString("movie"));
+
+        ImageView titleimage = findViewById(R.id.titleimage);
+
+        Picasso.get().load(getIntent().getExtras().getString("image")).into(titleimage);
+
+        TextView infolong = findViewById(R.id.info);
+        infolong.setText(getIntent().getExtras().getString("info"));
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -29,5 +44,20 @@ public class SingleMovie extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        RatingBar rb_story = findViewById(R.id.avgstory);
+
+        rb_story.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Toast.makeText(getApplicationContext(), "gas", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
+
+
     }
 }

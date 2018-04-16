@@ -46,6 +46,9 @@ public class MainView extends AppCompatActivity {
                 int pos = recyclerView.getChildLayoutPosition(view);
 
                 intent.putExtra("movie", movieList.get(pos).title);
+                intent.putExtra("image", movieList.get(pos).image);
+                intent.putExtra("info", movieList.get(pos).infolong);
+
                 startActivity(intent);
             }
 
@@ -79,7 +82,7 @@ public class MainView extends AppCompatActivity {
                 String infolong = jo.getString("infolong");
                 String image = jo.getString("image");
 
-                movieList.add(new MovieItem(title, genres, releasedate, info, image));
+                movieList.add(new MovieItem(title, genres, releasedate, info, image, infolong));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -92,6 +95,7 @@ public class MainView extends AppCompatActivity {
 
 
     private void prepareMovieData() {
+        /*
         MovieItem movie = new MovieItem("Mad Max: Fury Road", "Action & Adventure", "2015", "schub", "https://upload.wikimedia.org/wikipedia/commons/f/fb/Mad_Max_Fury_Road_film_Logo.png");
         movieList.add(movie);
 
@@ -141,6 +145,7 @@ public class MainView extends AppCompatActivity {
         movieList.add(movie);
 
         mAdapter.notifyDataSetChanged();
+        */
     }
 
 }
