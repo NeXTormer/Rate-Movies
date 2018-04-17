@@ -29,7 +29,6 @@ public class AddRatingView extends AppCompatActivity {
         final Preferences prefs = Preferences.userRoot();
 
 
-        RatingBar ratingbar = findViewById(R.id.ratingBar2);
 
         setTitle(getIntent().getExtras().getString("movie"));
 
