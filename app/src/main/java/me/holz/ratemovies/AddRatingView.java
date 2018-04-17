@@ -26,23 +26,7 @@ public class AddRatingView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final EditText nametext = findViewById(R.id.nametext);
-        Button submitbutton = findViewById(R.id.button);
         final Preferences prefs = Preferences.userRoot();
-
-        nametext.setText(prefs.get("name", ""));
-
-        submitbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prefs.put("name", nametext.getText().toString());
-                try {
-                    prefs.flush();
-                } catch (BackingStoreException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
 
         RatingBar ratingbar = findViewById(R.id.ratingBar2);
