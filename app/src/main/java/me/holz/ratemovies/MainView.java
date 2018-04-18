@@ -106,6 +106,9 @@ public class MainView extends AppCompatActivity {
     public void changeName(MenuItem menuitem)
     {
         Toast.makeText(getApplicationContext(), "Change Name", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+
+        startActivity(intent);
     }
 
 }
