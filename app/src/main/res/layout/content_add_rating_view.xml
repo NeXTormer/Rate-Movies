@@ -47,11 +47,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+
+                android:background="@color/colorPrimary" />
+
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Writing"
+                android:layout_marginTop="8dp"
                 android:textAlignment="center" />
 
             <RatingBar
@@ -64,6 +73,13 @@
                 android:stepSize="0.5"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -86,11 +102,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/colorPrimary" />
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Actors"
+                android:layout_marginTop="8dp"
                 android:textAlignment="center" />
 
             <RatingBar
@@ -103,6 +127,13 @@
                 android:stepSize="0.5"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -125,11 +156,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/colorPrimary" />
+
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Camera and Scenes"
+                android:layout_marginTop="8dp"
                 android:textAlignment="center" />
 
             <RatingBar
@@ -142,6 +181,13 @@
                 android:stepSize="0.5"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -164,10 +210,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
 
+
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
                 android:text="Overall Score"
                 android:textAlignment="center" />
 
@@ -182,10 +230,31 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="85dp" />
 
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="Expected Overall Score"
+                android:textAlignment="center" />
+
+            <RatingBar
+                android:id="@+id/rb_overall2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:isIndicator="false"
+                android:numStars="8"
+                android:stepSize="0.5"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:layout_editor_absoluteX="85dp" />
+
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:elevation="0dp"
                 android:text="Submit"
                 tools:text="Submit" />
