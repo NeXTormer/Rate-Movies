@@ -12,14 +12,21 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import me.holz.ratemovies.util.loadJSON;
 
 public class SingleRating extends AppCompatActivity {
 
     public List<RatingItem> ratings = new ArrayList<>();
 
     private String ratingCategory;
+    private RatingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +41,12 @@ public class SingleRating extends AppCompatActivity {
 
         ratingCategory = getIntent().getExtras().getString("category");
 
-        toolbar.setTitle(ratingCategory);
+        setTitle(ratingCategory.substring(0, 1).toUpperCase() + ratingCategory.substring(1));
 
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        RatingAdapter adapter = new RatingAdapter(ratings);
+        adapter = new RatingAdapter(ratings);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -50,12 +57,31 @@ public class SingleRating extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
     }
-
     private void loadRatingsFromAPI()
     {
-        ratings.add(new RatingItem("gas", 3));
-        ratings.add(new RatingItem("werner", 6));
+        try
+        {
+            loadJSON lj = new loadJSON("http://localhost:4443/ratemovies/singlerating/" + getIntent().getExtras().getInt("movieid") + "/" + getIntent().getExtras().getString("category"));
+            lj.thread.start();
+            lj.thread.join();
+            String jsonraw = lj.result;
 
+            System.out.println(jsonraw);
+            JSONArray ja = new JSONArray(jsonraw);
+            for(int i = 0; i < ja.length(); i++)
+            {
+                JSONObject jo = ja.getJSONObject(i);
+                String name = jo.getString("name");
+                double rating = jo.getDouble("rating");
 
+                ratings.add(new RatingItem(name, (float) rating));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        adapter.notifyDataSetChanged();
     }
 }

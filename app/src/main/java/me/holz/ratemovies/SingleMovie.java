@@ -45,6 +45,8 @@ public class SingleMovie extends AppCompatActivity {
         String releasedate = getIntent().getExtras().getString("releasedate");
         double averagerating = getIntent().getExtras().getDouble("avgrating");
 
+        System.out.println(getIntent().getExtras().getInt("movieid") + " | IDGAS");
+
         infolong.setText("Releasedate: " + releasedate + "\nWatchdate: " + watchdate + "\nAverage Rating: " + averagerating + "\nIMDB: " + imdb);
 
 
@@ -66,7 +68,7 @@ public class SingleMovie extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "story");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -80,7 +82,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "writing");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -94,7 +96,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "music");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -108,7 +110,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "actor");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -122,7 +124,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "effects");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -136,7 +138,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "camera");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -149,7 +151,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "entertaining");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -163,7 +165,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "overall");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;
@@ -176,7 +178,7 @@ public class SingleMovie extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
                 intent.putExtra("category", "expectedoverall");
-                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
                 return false;

@@ -47,6 +47,20 @@ SELECT movies.id, TRUNCATE(AVG(story), 1) AS story, TRUNCATE(AVG(writing), 1) AS
 
 SELECT id from users where apikey = "dlex";
 
+SELECT id FROM ratings WHERE user_id = 1 AND movie_id = 2;
+
+select * from users;
+insert into users (username, password, apikey) values ("schub", "werner", "gas");
+
+select * from ratings;
+
+
+insert into ratings (movie_id, user_id, story, writing, music, actors, effects, camera, entertaining, overall, expectedoverall) values (1, 2, 3, 3, 4, 5, 6, 7, 9, 2, 1);
+
+SELECT users.username, ratings.story FROM ratings INNER JOIN users ON ratings.user_id = users.id WHERE ratings.movie_id = 2 GROUP BY username ORDER BY username ASC;
+
+
+
 
 
 
