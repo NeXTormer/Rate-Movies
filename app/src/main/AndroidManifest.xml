@@ -41,6 +41,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.holz.ratemovies.SingleMovie" />
         </activity>
+        <activity
+            android:name=".SingleRating"
+            android:label="@string/title_activity_single_rating"
+            android:parentActivityName=".SingleMovie"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.holz.ratemovies.SingleMovie" />
+        </activity>
     </application>
 
 </manifest>

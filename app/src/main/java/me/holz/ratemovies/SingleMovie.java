@@ -61,6 +61,131 @@ public class SingleMovie extends AppCompatActivity {
         loadRatingFromAPI(rb_story, rb_writing, rb_music, rb_acting, rb_effects, rb_camera, rb_entertaining, rb_overall, rb_expectedoverall);
 
 
+        rb_story.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "story");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+
+        rb_writing.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "writing");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+
+        rb_music.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "music");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+
+        rb_acting.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "actor");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+
+        rb_effects.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "effects");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+
+        rb_camera.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "camera");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+        rb_entertaining.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "entertaining");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+
+        rb_overall.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "overall");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+        rb_expectedoverall.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Intent intent = new Intent(getApplicationContext(), SingleRating.class);
+                intent.putExtra("category", "expectedoverall");
+                intent.putExtra("movieid", getIntent().getExtras().getString("movieid"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+
+
+
         loadFAB();
 
         /*RatingBar rb_story = findViewById(R.id.avgstory);

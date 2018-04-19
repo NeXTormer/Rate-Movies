@@ -33,9 +33,19 @@ public class AddRatingView extends AppCompatActivity {
         setTitle(getIntent().getExtras().getString("movie"));
 
 
-
-        /* Back Button crashes app when pressed, tempoarily disabled */
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        RatingBar rb_story = findViewById(R.id.rb_story);
+        RatingBar rb_writing = findViewById(R.id.rb_writing);
+        RatingBar rb_music = findViewById(R.id.rb_music);
+        RatingBar rb_acting = findViewById(R.id.rb_actors);
+        RatingBar rb_effects = findViewById(R.id.rb_effects);
+        RatingBar rb_camera = findViewById(R.id.rb_camera);
+        RatingBar rb_entertaining = findViewById(R.id.rb_entertaining);
+        RatingBar rb_overall = findViewById(R.id.rb_overall);
+        RatingBar rb_expectedoverall = findViewById(R.id.rb_expectedoverall);
+
     }
 
 }
