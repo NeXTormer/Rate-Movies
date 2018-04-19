@@ -15,7 +15,16 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import me.holz.ratemovies.util.loadJSON;
+
 public class SingleMovie extends AppCompatActivity {
+
+    public String username;
+    public int userid = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +48,20 @@ public class SingleMovie extends AppCompatActivity {
         infolong.setText("Releasedate: " + releasedate + "\nWatchdate: " + watchdate + "\nAverage Rating: " + averagerating + "\nIMDB: " + imdb);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AddRatingView.class);
-                intent.putExtra("movie", getTitle());
+        RatingBar rb_story = findViewById(R.id.rb_story);
+        RatingBar rb_writing = findViewById(R.id.rb_writing);
+        RatingBar rb_music = findViewById(R.id.rb_music);
+        RatingBar rb_acting = findViewById(R.id.rb_actors);
+        RatingBar rb_effects = findViewById(R.id.rb_effects);
+        RatingBar rb_camera = findViewById(R.id.rb_camera);
+        RatingBar rb_entertaining = findViewById(R.id.rb_entertaining);
+        RatingBar rb_overall = findViewById(R.id.rb_overall);
+        RatingBar rb_expectedoverall = findViewById(R.id.rb_expectedoverall);
 
-                startActivity(intent);
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        loadRatingFromAPI(rb_story, rb_writing, rb_music, rb_acting, rb_effects, rb_camera, rb_entertaining, rb_overall, rb_expectedoverall);
 
+
+        loadFAB();
 
         /*RatingBar rb_story = findViewById(R.id.avgstory);
 
@@ -65,5 +76,79 @@ public class SingleMovie extends AppCompatActivity {
         });
 */
 
+    }
+
+
+    private void loadFAB()
+    {
+        try
+        {
+            loadJSON lj = new loadJSON("http://faoiltiarna.ddns.net:4443/ratemovies/alreadyrated/" + getIntent().getExtras().getInt("movieid") + "/" + userid);
+            lj.thread.start();
+            lj.thread.join();
+            String jsonraw = lj.result;
+
+            JSONObject jo = new JSONObject(jsonraw);
+
+            boolean rated = jo.getBoolean("msg");
+            if(!rated)
+            {
+
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), AddRatingView.class);
+                        intent.putExtra("movie", getTitle());
+
+                        startActivity(intent);
+                    }
+                });
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            }
+            else
+            {
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.hide();
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadRatingFromAPI(RatingBar rb_story, RatingBar rb_writing, RatingBar rb_music, RatingBar rb_acting, RatingBar rb_effects, RatingBar rb_camera, RatingBar rb_entertaining, RatingBar rb_overall, RatingBar rb_expectedoverall)
+    {
+        try
+        {
+            loadJSON lj = new loadJSON("http://faoiltiarna.ddns.net:4443/ratemovies/averageratings/" + getIntent().getExtras().getInt("movieid"));
+            lj.thread.start();
+            lj.thread.join();
+            String jsonraw = lj.result;
+
+            System.out.println(jsonraw);
+            JSONArray ja = new JSONArray(jsonraw);
+
+            JSONObject jo = ja.getJSONObject(0);
+
+            rb_story.setRating((float) jo.getDouble("story"));
+            rb_writing.setRating((float) jo.getDouble("writing"));
+            rb_music.setRating((float) jo.getDouble("music"));
+            rb_acting.setRating((float) jo.getDouble("acting"));
+            rb_effects.setRating((float) jo.getDouble("effects"));
+            rb_camera.setRating((float) jo.getDouble("camera"));
+            rb_entertaining.setRating((float) jo.getDouble("entertaining"));
+            rb_overall.setRating((float) jo.getDouble("overall"));
+            rb_expectedoverall.setRating((float) jo.getDouble("expectedoverall"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

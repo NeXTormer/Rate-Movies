@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="8dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -70,12 +70,12 @@
 
                 <RatingBar
                     android:id="@+id/rb_story"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:numStars="8"
                     android:stepSize="0.1"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:layout_editor_absoluteX="85dp" />
 
@@ -97,13 +97,13 @@
 
                 <RatingBar
                     android:id="@+id/rb_writing"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:isIndicator="true"
                     android:numStars="8"
                     android:stepSize="0.1"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:layout_editor_absoluteX="85dp" />
 
@@ -126,13 +126,13 @@
 
                 <RatingBar
                     android:id="@+id/rb_music"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:isIndicator="true"
                     android:numStars="8"
                     android:stepSize="0.1"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:layout_editor_absoluteX="85dp" />
 
@@ -153,13 +153,13 @@
 
                 <RatingBar
                     android:id="@+id/rb_actors"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:isIndicator="true"
                     android:numStars="8"
                     android:stepSize="0.1"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:layout_editor_absoluteX="85dp" />
 
@@ -182,13 +182,13 @@
 
                 <RatingBar
                     android:id="@+id/rb_effects"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:isIndicator="true"
                     android:numStars="8"
                     android:stepSize="0.1"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:layout_editor_absoluteX="85dp" />
 
@@ -209,18 +209,6 @@
 
                 <RatingBar
                     android:id="@+id/rb_camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:isIndicator="true"
-                    android:numStars="8"
-                    android:stepSize="0.1"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8"
-                    tools:layout_editor_absoluteX="85dp" />
-
-                <RatingBar
-                    android:id="@+id/rb_entertaining"
                     style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -248,6 +236,18 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="189dp" />
 
+                <RatingBar
+                    android:id="@+id/rb_entertaining"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:isIndicator="true"
+                    android:numStars="8"
+                    android:stepSize="0.1"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    tools:layout_editor_absoluteX="85dp" />
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
@@ -265,14 +265,14 @@
                     android:textAlignment="center" />
 
                 <RatingBar
-                    android:id="@+id/rb_overall2"
+                    android:id="@+id/rb_expectedoverall"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:isIndicator="true"
                     android:numStars="8"
                     android:stepSize="0.1"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:layout_editor_absoluteX="85dp" />
 
@@ -304,7 +304,6 @@
                     android:stepSize="0.1"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:layout_editor_absoluteX="85dp" />
-
 
 
             </LinearLayout>

@@ -54,7 +54,7 @@ public class MainView extends AppCompatActivity {
                 intent.putExtra("imdb", movieList.get(pos).imdb);
                 intent.putExtra("watchdate", movieList.get(pos).watchdate);
                 intent.putExtra("image", movieList.get(pos).image);
-
+                intent.putExtra("movieid", movieList.get(pos).id);
 
 
                 startActivity(intent);
