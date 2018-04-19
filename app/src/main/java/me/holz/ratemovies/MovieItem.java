@@ -9,24 +9,32 @@ import android.widget.ImageView;
 public class MovieItem
 {
 
+    public int id;
+
     public String title;
     public String genre;
-    public String date;
+    public String releasedate;
     public String info;
     public String image;
+    public String watchdate;
 
-    public String infolong;
+    public double imdb;
+    public double averagerating;
 
-    public MovieItem(String title, String genre, String date, String info, String image, String infolong)
+    public MovieItem(int id, String title, String genre, String releasedate, String watchdate, String info, String image, double imdb, double averagerating)
     {
+        this.id = id;
         this.title = title;
         this.genre = genre;
-        this.date = date;
+        this.releasedate = releasedate;
+        this.watchdate = watchdate;
         this.info = info;
+
+        this.imdb = imdb;
+        this.averagerating = averagerating;
 
         this.image = image;
 
-        this.infolong = infolong;
     }
 
 }

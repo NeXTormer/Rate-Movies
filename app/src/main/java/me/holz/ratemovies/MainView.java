@@ -48,9 +48,14 @@ public class MainView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SingleMovie.class);
                 int pos = recyclerView.getChildLayoutPosition(view);
 
-                intent.putExtra("movie", movieList.get(pos).title);
+                intent.putExtra("title", movieList.get(pos).title);
+                intent.putExtra("releasedate", movieList.get(pos).releasedate);
+                intent.putExtra("avgrating", movieList.get(pos).averagerating);
+                intent.putExtra("imdb", movieList.get(pos).imdb);
+                intent.putExtra("watchdate", movieList.get(pos).watchdate);
                 intent.putExtra("image", movieList.get(pos).image);
-                intent.putExtra("info", movieList.get(pos).infolong);
+
+
 
                 startActivity(intent);
             }
@@ -82,10 +87,13 @@ public class MainView extends AppCompatActivity {
                 String genres = jo.getString("genres");
                 String releasedate = jo.getString("releasedate");
                 String info = jo.getString("info");
-                String infolong = jo.getString("infolong");
                 String image = jo.getString("image");
+                double imdb = jo.getDouble("imdb");
+                double avgrating = jo.getDouble("averagerating");
+                String watchdate = jo.getString("watchdate");
+                int id = jo.getInt("id");
 
-                movieList.add(new MovieItem(title, genres, releasedate, info, image, infolong));
+                movieList.add(new MovieItem(id, title, genres, releasedate, watchdate, info, image, imdb, avgrating));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -106,9 +114,8 @@ public class MainView extends AppCompatActivity {
     public void changeName(MenuItem menuitem)
     {
         Toast.makeText(getApplicationContext(), "Change Name", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 
-        startActivity(intent);
+
     }
 
 }

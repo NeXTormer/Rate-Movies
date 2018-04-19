@@ -41,14 +41,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.holz.ratemovies.SingleMovie" />
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".MainView">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.holz.ratemovies.MainView" />
-        </activity>
     </application>
 
 </manifest>

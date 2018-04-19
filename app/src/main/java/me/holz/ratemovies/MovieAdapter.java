@@ -56,8 +56,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>
         MovieItem movie = m_Movies.get(position);
         holder.title.setText(movie.title);
         holder.genre.setText(movie.genre);
-        holder.year.setText(movie.date);
-        holder.info.setText(movie.info);
+        holder.year.setText(movie.releasedate);
+        holder.info.setText(movie.averagerating + "");
+
         new DownloadImageTask(holder.image).execute(movie.image);
     }
 

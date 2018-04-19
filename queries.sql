@@ -29,22 +29,23 @@ desc users;
 SELECT password, apikey FROM users WHERE username = "gas";
 
 
-SELECT password, apikey FROM users WHERE username = 'peta';
+SELECT password, apikey FROM users WHERE username = "peta";
+
+select sha1(uuid());
 
 select * from movies;
 select * from ratings;
-select * from users;
+select * from users; 
 
-insert into ratings (movie_id, user_id, story, writing, music, actors, effects, camera, entertaining, overall, expectedoverall) values (2, 1, 1, 1, 1, 1, 9, 9, 1, 1, 9); 
+INSERT INTO ratings (movie_id, user_id, story, writing, music, actors, effects, camera, entertaining, overall, expectedoverall) VALUES (2, 1, 1, 1, 1, 1, 9, 9, 1, 1, 9); 
 
 -- movie list + average rating maybe not working completely with more movies
 SELECT movies.id, title, genres, DATE_FORMAT(releasedate, '%Y-%m-%d') AS releasedate, info, image, imdb, DATE_FORMAT(watched, '%Y-%m-%d') AS watchdate, TRUNCATE((AVG(story) + AVG(writing) + AVG(music) + AVG(actors) + AVG(effects) + AVG(camera) + AVG(entertaining)) / 7, 1) AS averagerating FROM movies INNER JOIN ratings ON movies.id = ratings.movie_id ORDER BY watched DESC;
 
 -- average ratings for a movie
+SELECT movies.id, TRUNCATE(AVG(story), 1) AS story, TRUNCATE(AVG(writing), 1) AS writing, TRUNCATE(AVG(music), 1) AS music, TRUNCATE(AVG(actors), 1) AS acting, TRUNCATE(AVG(effects), 1) AS effects, TRUNCATE(AVG(camera), 1) AS camera, TRUNCATE(AVG(entertaining), 1) AS entertaining, TRUNCATE(AVG(overall), 1) AS overall, TRUNCATE(AVG(expectedoverall), 1) AS expectedoverall FROM movies INNER JOIN ratings ON movies.id = ratings.movie_id WHERE movies.id = 2;
 
-SELECT movies.id, AVG(story) AS story, AVG(writing) AS writing, AVG(music) AS music, AVG(actors) AS acting, AVG(effects) AS effects, AVG(camera) AS camera, AVG(entertaining) AS entertaining, AVG(overall) AS overall, AVG(expectedoverall) AS expectedoverall FROM movies INNER JOIN ratings ON movies.id = ratings.movie_id;
-
-
+SELECT id from users where apikey = "dlex";
 
 
 

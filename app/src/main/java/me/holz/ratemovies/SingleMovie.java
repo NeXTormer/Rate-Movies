@@ -23,14 +23,20 @@ public class SingleMovie extends AppCompatActivity {
         setContentView(R.layout.activity_single_movie);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle(getIntent().getExtras().getString("movie"));
+        setTitle(getIntent().getExtras().getString("title"));
 
         ImageView titleimage = findViewById(R.id.titleimage);
 
         Picasso.get().load(getIntent().getExtras().getString("image")).into(titleimage);
 
         TextView infolong = findViewById(R.id.info);
-        infolong.setText(getIntent().getExtras().getString("info"));
+
+        double imdb = getIntent().getExtras().getDouble("imdb");
+        String watchdate = getIntent().getExtras().getString("watchdate");
+        String releasedate = getIntent().getExtras().getString("releasedate");
+        double averagerating = getIntent().getExtras().getDouble("avgrating");
+
+        infolong.setText("Releasedate: " + releasedate + "\nWatchdate: " + watchdate + "\nAverage Rating: " + averagerating + "\nIMDB: " + imdb);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -46,7 +52,7 @@ public class SingleMovie extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        RatingBar rb_story = findViewById(R.id.avgstory);
+        /*RatingBar rb_story = findViewById(R.id.avgstory);
 
         rb_story.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -57,7 +63,7 @@ public class SingleMovie extends AppCompatActivity {
                 return false;
             }
         });
-
+*/
 
     }
 }
