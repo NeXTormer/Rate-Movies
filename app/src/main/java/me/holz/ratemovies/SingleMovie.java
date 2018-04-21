@@ -227,6 +227,7 @@ public class SingleMovie extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), AddRatingView.class);
                         intent.putExtra("movie", getTitle());
+                        intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
 
                         startActivity(intent);
                     }
