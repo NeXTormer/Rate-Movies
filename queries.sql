@@ -31,7 +31,7 @@ SELECT password, apikey FROM users WHERE username = "gas";
 
 SELECT password, apikey FROM users WHERE username = "peta";
 
-select sha1(uuid());
+select sha1(uuid() + "gas") as apikey;
 
 select * from movies;
 select * from ratings;
@@ -59,9 +59,19 @@ insert into ratings (movie_id, user_id, story, writing, music, actors, effects, 
 
 SELECT users.username, ratings.story FROM ratings INNER JOIN users ON ratings.user_id = users.id WHERE ratings.movie_id = 2 GROUP BY username ORDER BY username ASC;
 
+SELECT users.username, ratings.undefined FROM ratings INNER JOIN users ON ratings.user_id = users.id WHERE ratings.movie_id = 2 GROUP BY username ORDER BY username ASC;
+
+select * from users;
 
 
+SELECT id FROM users WHERE username = "peterd";
 
+
+INSERT INTO users (username, password, apikey) VALUES ("lex", "eu", sha1(uuid()));
+
+alter table users modify apikey varchar(40);
+
+delete from users where id = 4;
 
 
 

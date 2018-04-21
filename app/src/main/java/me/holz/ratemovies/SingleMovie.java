@@ -1,6 +1,8 @@
 package me.holz.ratemovies;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -203,6 +205,10 @@ public class SingleMovie extends AppCompatActivity {
         });
 */
 
+
+
+        SharedPreferences peta = getPreferences(Context.MODE_PRIVATE);
+        System.out.println(peta.getString("apikey", "") + "KEY");
     }
 
 
