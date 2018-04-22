@@ -37,9 +37,14 @@ public class SingleRating extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.hide();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ratingCategory = getIntent().getExtras().getString("category");
+
+        if(ratingCategory.equalsIgnoreCase("actors")) ratingCategory = "acting";
+        else if(ratingCategory.equalsIgnoreCase("expectedoverall")) ratingCategory = "Expected overall score";
+        else if(ratingCategory.equalsIgnoreCase("overall")) ratingCategory = "Overall score";
+        else if(ratingCategory.equalsIgnoreCase("camera")) ratingCategory = "Camera and scenes";
 
         setTitle(ratingCategory.substring(0, 1).toUpperCase() + ratingCategory.substring(1));
 
@@ -61,8 +66,7 @@ public class SingleRating extends AppCompatActivity {
     {
         try
         {
-            String url = "http://localhost:4443/ratemovies/singlerating/" + getIntent().getExtras().getInt("movieid") + "/" + getIntent().getExtras().getString("category");
-            System.out.println(url + "URL");
+            String url = "http://faoiltiarna.ddns.net:4443/ratemovies/singlerating/" + getIntent().getExtras().getInt("movieid") + "/" + getIntent().getExtras().getString("category");
             loadJSON lj = new loadJSON(url);
             lj.thread.start();
             lj.thread.join();
@@ -73,7 +77,7 @@ public class SingleRating extends AppCompatActivity {
             for(int i = 0; i < ja.length(); i++)
             {
                 JSONObject jo = ja.getJSONObject(i);
-                String name = jo.getString("name");
+                String name = jo.getString("username");
                 double rating = jo.getDouble("rating");
 
                 ratings.add(new RatingItem(name, (float) rating));

@@ -110,7 +110,7 @@ public class SingleMovie extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
                 Intent intent = new Intent(getApplicationContext(), SingleRating.class);
-                intent.putExtra("category", "actor");
+                intent.putExtra("category", "actors");
                 intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
                 startActivity(intent);
 
