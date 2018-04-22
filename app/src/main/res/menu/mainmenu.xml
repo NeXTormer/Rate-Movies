@@ -4,8 +4,7 @@
 
     <item
         android:id="@+id/item_changename"
-        android:title="Login / Register"
-        app:showAsAction="withText"
         android:onClick="changeName"
-        />
+        android:title="Login / Register"
+        app:showAsAction="always" />
 </menu>

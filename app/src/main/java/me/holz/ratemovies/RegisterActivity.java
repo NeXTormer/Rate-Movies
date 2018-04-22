@@ -1,5 +1,8 @@
 package me.holz.ratemovies;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -56,7 +59,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                         if(msg.equals("Success"))
                         {
-                            onBackPressed();
+                            login(username, pw1);
+
+                            Intent intent = new Intent(getApplicationContext(), MainView.class);
+
+                            startActivity(intent);
+
                             return;
                         }
                         else
@@ -73,6 +81,31 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void login(String username, String password) {
+        String url = "http://faoiltiarna.ddns.net:4443/ratemovies/login/" + username + "/" + SHA512.get_SHA_512_SecurePassword(password, SHA512.SALT);
+        loadJSON lj = new loadJSON(url);
+        lj.thread.start();
+        try {
+            lj.thread.join();
+
+            System.out.println(lj.result);
+            JSONObject jo = new JSONObject(lj.result);
+
+            if (jo.getString("msg").equals("Success")) {
+                SharedPreferences sharedPref = getSharedPreferences("key", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("apikey", jo.getString("apikey"));
+                editor.putString("username", jo.getString("username"));
+                editor.putInt("userid", jo.getInt("userid"));
+                editor.apply();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -44,9 +44,12 @@ public class SingleMovie extends AppCompatActivity {
         double imdb = getIntent().getExtras().getDouble("imdb");
         String watchdate = getIntent().getExtras().getString("watchdate");
         String releasedate = getIntent().getExtras().getString("releasedate");
-        double averagerating = getIntent().getExtras().getDouble("avgrating");
+        double averagerating = loadAverageRating(getIntent().getExtras().getInt("movieid"));
+        averagerating /= 8.0;
+        averagerating *= 10;
 
-        System.out.println(getIntent().getExtras().getInt("movieid") + " | IDGAS");
+        averagerating = Math.round(averagerating * 10.0) / 10.0;
+
 
         infolong.setText("Releasedate: " + releasedate + "\nWatchdate: " + watchdate + "\nAverage Rating: " + averagerating + "\nIMDB: " + imdb);
 
@@ -316,5 +319,26 @@ public class SingleMovie extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    //TODO: this is duplicate code from MainView
+    private double loadAverageRating(int id)
+    {
+        loadJSON lj = new loadJSON("http://faoiltiarna.ddns.net:4443/ratemovies/averagerating/" + id);
+        lj.thread.start();
+        try {
+            lj.thread.join();
+            JSONArray ja = new JSONArray(lj.result);
+            JSONObject jo = ja.getJSONObject(0);
+
+            double rating = jo.getDouble("averagerating");
+
+            return rating;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

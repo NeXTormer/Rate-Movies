@@ -67,10 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             onBackPressed();
                         }
-                        else
-                        {
 
-                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
