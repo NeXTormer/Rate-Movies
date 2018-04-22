@@ -3,7 +3,9 @@ package me.holz.ratemovies;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,9 +26,6 @@ import org.json.JSONObject;
 import me.holz.ratemovies.util.loadJSON;
 
 public class SingleMovie extends AppCompatActivity {
-
-    public String username;
-    public int userid = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,6 +215,16 @@ public class SingleMovie extends AppCompatActivity {
     {
         try
         {
+
+            SharedPreferences prefs = getSharedPreferences("key", MODE_PRIVATE);
+            int userid = prefs.getInt("userid", -1);
+
+            if(userid == -1)
+            {
+                removeFAB();
+                return;
+            }
+
             loadJSON lj = new loadJSON("http://faoiltiarna.ddns.net:4443/ratemovies/alreadyrated/" + getIntent().getExtras().getInt("movieid") + "/" + userid);
             lj.thread.start();
             lj.thread.join();
@@ -224,6 +233,7 @@ public class SingleMovie extends AppCompatActivity {
             JSONObject jo = new JSONObject(jsonraw);
 
             boolean rated = jo.getBoolean("msg");
+
             if(!rated)
             {
 
@@ -235,6 +245,19 @@ public class SingleMovie extends AppCompatActivity {
                         intent.putExtra("movie", getTitle());
                         intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
 
+                        double imdb = getIntent().getExtras().getDouble("imdb");
+                        String watchdate = getIntent().getExtras().getString("watchdate");
+                        String releasedate = getIntent().getExtras().getString("releasedate");
+                        double averagerating = getIntent().getExtras().getDouble("avgrating");
+
+                        intent.putExtra("imdb", imdb);
+                        intent.putExtra("title", getTitle());
+                        intent.putExtra("watchdate", watchdate);
+                        intent.putExtra("releasedate", releasedate);
+                        intent.putExtra("avgrating", averagerating);
+
+                        intent.putExtra("image", getIntent().getExtras().getString("image"));
+
                         startActivity(intent);
                     }
                 });
@@ -243,8 +266,7 @@ public class SingleMovie extends AppCompatActivity {
             }
             else
             {
-                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                fab.hide();
+                removeFAB();
             }
 
 
@@ -254,6 +276,17 @@ public class SingleMovie extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void removeFAB()
+    {
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        p.setAnchorId(View.NO_ID);
+        fab.setLayoutParams(p);
+        fab.setVisibility(View.GONE);
+    }
+
 
     private void loadRatingFromAPI(RatingBar rb_story, RatingBar rb_writing, RatingBar rb_music, RatingBar rb_acting, RatingBar rb_effects, RatingBar rb_camera, RatingBar rb_entertaining, RatingBar rb_overall, RatingBar rb_expectedoverall)
     {

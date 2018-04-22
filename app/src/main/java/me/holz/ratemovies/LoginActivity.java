@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         final EditText username = findViewById(R.id.username);
@@ -53,10 +53,12 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jo = new JSONObject(lj.result);
                         Snackbar.make(view, jo.getString("msg") + ", Username: " + jo.getString("username"), Snackbar.LENGTH_SHORT).show();
 
-                        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences sharedPref = getSharedPreferences("key", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putString("apikey", jo.getString("apikey"));
-                        editor.commit();
+                        editor.putString("username", jo.getString("username"));
+                        editor.putInt("userid", jo.getInt("userid"));
+                        editor.apply();
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
