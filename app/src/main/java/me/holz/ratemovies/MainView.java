@@ -66,7 +66,24 @@ public class MainView extends AppCompatActivity {
             }
         }));
 
+        getIntent().setAction("1oncreate");
         loadMovieDataFormServer();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        String action = getIntent().getAction();
+        if(action == null || !action.equals("1oncreate")) {
+            finish();
+            startActivity(getIntent());
+        }
+        else
+        {
+            getIntent().setAction(null);
+        }
     }
 
     private void loadMovieDataFormServer()
@@ -89,9 +106,11 @@ public class MainView extends AppCompatActivity {
                 String info = jo.getString("info");
                 String image = jo.getString("image");
                 double imdb = jo.getDouble("imdb");
-                double avgrating = jo.getDouble("averagerating");
+
                 String watchdate = jo.getString("watchdate");
                 int id = jo.getInt("id");
+
+                double avgrating = loadAverageRating(id);
 
                 movieList.add(new MovieItem(id, title, genres, releasedate, watchdate, info, image, imdb, avgrating));
             }
@@ -102,6 +121,26 @@ public class MainView extends AppCompatActivity {
         }
 
         mAdapter.notifyDataSetChanged();
+    }
+
+    private double loadAverageRating(int id)
+    {
+        loadJSON lj = new loadJSON("http://faoiltiarna.ddns.net:4443/ratemovies/averagerating/" + id);
+        lj.thread.start();
+        try {
+            lj.thread.join();
+            JSONArray ja = new JSONArray(lj.result);
+            JSONObject jo = ja.getJSONObject(0);
+
+            double rating = jo.getDouble("averagerating");
+
+            return rating;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 

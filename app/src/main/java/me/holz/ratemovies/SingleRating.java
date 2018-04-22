@@ -61,7 +61,9 @@ public class SingleRating extends AppCompatActivity {
     {
         try
         {
-            loadJSON lj = new loadJSON("http://localhost:4443/ratemovies/singlerating/" + getIntent().getExtras().getInt("movieid") + "/" + getIntent().getExtras().getString("category"));
+            String url = "http://localhost:4443/ratemovies/singlerating/" + getIntent().getExtras().getInt("movieid") + "/" + getIntent().getExtras().getString("category");
+            System.out.println(url + "URL");
+            loadJSON lj = new loadJSON(url);
             lj.thread.start();
             lj.thread.join();
             String jsonraw = lj.result;

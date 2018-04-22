@@ -60,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putInt("userid", jo.getInt("userid"));
                         editor.apply();
 
+                        onBackPressed();
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {

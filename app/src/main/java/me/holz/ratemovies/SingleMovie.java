@@ -191,25 +191,24 @@ public class SingleMovie extends AppCompatActivity {
 
         loadFAB();
 
-        /*RatingBar rb_story = findViewById(R.id.avgstory);
-
-        rb_story.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                Toast.makeText(getApplicationContext(), "gas", Toast.LENGTH_SHORT).show();
-
-                return false;
-            }
-        });
-*/
-
-
-
-        SharedPreferences peta = getPreferences(Context.MODE_PRIVATE);
-        System.out.println(peta.getString("apikey", "") + "KEY");
+        getIntent().setAction("1oncreate");
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        String action = getIntent().getAction();
+        if(action == null || !action.equals("1oncreate")) {
+            finish();
+            startActivity(getIntent());
+        }
+        else
+        {
+            getIntent().setAction(null);
+        }
+    }
 
     private void loadFAB()
     {

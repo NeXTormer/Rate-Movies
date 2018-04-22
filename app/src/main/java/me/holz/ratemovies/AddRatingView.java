@@ -75,25 +75,7 @@ public class AddRatingView extends AppCompatActivity {
 
                 lj.thread.start();
 
-                Intent intent = new Intent(getApplicationContext(), SingleMovie.class);
-
-                intent.putExtra("movie", getTitle());
-                intent.putExtra("movieid", getIntent().getExtras().getInt("movieid"));
-
-                double imdb = getIntent().getExtras().getDouble("imdb");
-                String watchdate = getIntent().getExtras().getString("watchdate");
-                String releasedate = getIntent().getExtras().getString("releasedate");
-                double averagerating = getIntent().getExtras().getDouble("avgrating");
-
-                intent.putExtra("imdb", imdb);
-                intent.putExtra("title", getTitle());
-                intent.putExtra("watchdate", watchdate);
-                intent.putExtra("releasedate", releasedate);
-                intent.putExtra("avgrating", averagerating);
-
-                intent.putExtra("image", getIntent().getExtras().getString("image"));
-
-                startActivity(intent);
+                onBackPressed();
 
             }
         });
