@@ -1,6 +1,7 @@
 package me.holz.ratemovies;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -35,6 +36,13 @@ public class MainView extends AppCompatActivity {
         setContentView(R.layout.activity_main_view);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        SharedPreferences prefs = getSharedPreferences("key", MODE_PRIVATE);
+        String username = prefs.getString("username", "Guest");
+
+        setTitle("Rate-Movies (" + username + ")");
+
+
 
         mAdapter = new MovieAdapter(movieList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -111,6 +119,11 @@ public class MainView extends AppCompatActivity {
                 int id = jo.getInt("id");
 
                 double avgrating = loadAverageRating(id);
+                //normalize rating to 10
+                avgrating /= 8.0;
+                avgrating *= 10;
+
+                avgrating = Math.round(avgrating * 10.0) / 10.0;
 
                 movieList.add(new MovieItem(id, title, genres, releasedate, watchdate, info, image, imdb, avgrating));
             }
