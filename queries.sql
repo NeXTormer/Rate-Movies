@@ -63,8 +63,9 @@ SELECT users.username, ratings.undefined FROM ratings INNER JOIN users ON rating
 
 select * from users;
 
+select * from ratings;
 
-SELECT id FROM users WHERE username = "peterd";
+
 
 
 INSERT INTO users (username, password, apikey) VALUES ("lex", "eu", sha1(uuid()));
@@ -72,6 +73,23 @@ INSERT INTO users (username, password, apikey) VALUES ("lex", "eu", sha1(uuid())
 alter table users modify apikey varchar(40);
 
 delete from users where id = 4;
+
+
+use movie_ratings;
+
+
+
+select * from ratings;
+select * from users;
+
+select * from movies;
+
+select * from movies order by imdb desc;
+
+use iot_the_operator;
+
+SELECT temperature AS temperature, humidity AS humidity, DATE_FORMAT(time, "%H:%i-%d") AS time FROM weather1 WHERE deviceid = 6 AND id % 1 = 0 AND DATE(time) = STR_TO_DATE(t.datestring, '%d/%m/%Y') ORDER BY id ASC;
+
 
 
 
