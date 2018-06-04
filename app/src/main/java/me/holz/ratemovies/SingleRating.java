@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -27,6 +28,7 @@ public class SingleRating extends AppCompatActivity {
 
     private String ratingCategory;
     private RatingAdapter adapter;
+    private SwipeRefreshLayout swipelayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,19 @@ public class SingleRating extends AppCompatActivity {
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
+
+        swipelayout = findViewById(R.id.swiperefresh);
+        swipelayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        loadRatingsFromAPI();
+                        swipelayout.setRefreshing(false);
+                    }
+                }
+        );
+
+
         adapter = new RatingAdapter(ratings);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -64,6 +79,7 @@ public class SingleRating extends AppCompatActivity {
     }
     private void loadRatingsFromAPI()
     {
+        ratings.clear();
         try
         {
             String url = "http://faoiltiarna.ddns.net:4443/ratemovies/singlerating/" + getIntent().getExtras().getInt("movieid") + "/" + getIntent().getExtras().getString("category");
