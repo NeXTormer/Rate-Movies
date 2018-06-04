@@ -2,6 +2,7 @@ package me.holz.ratemovies;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,6 +29,7 @@ public class MainView extends AppCompatActivity {
     private List<MovieItem> movieList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MovieAdapter mAdapter;
+    private SwipeRefreshLayout swipelayout;
 
 
     @Override
@@ -41,6 +43,22 @@ public class MainView extends AppCompatActivity {
         String username = prefs.getString("username", "Guest");
 
         setTitle("Rate-Movies (" + username + ")");
+
+        swipelayout = findViewById(R.id.swiperefresh);
+        swipelayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+
+                        loadMovieDataFormServer();
+
+
+
+                        swipelayout.setRefreshing(false);
+                    }
+                }
+        );
+
 
 
 
@@ -83,19 +101,13 @@ public class MainView extends AppCompatActivity {
     {
         super.onResume();
 
-        String action = getIntent().getAction();
-        if(action == null || !action.equals("1oncreate")) {
-            finish();
-            startActivity(getIntent());
-        }
-        else
-        {
-            getIntent().setAction(null);
-        }
+
     }
+
 
     private void loadMovieDataFormServer()
     {
+        movieList.clear();
         try
         {
             loadJSON lj = new loadJSON("http://faoiltiarna.ddns.net:4443/ratemovies/movielist");
