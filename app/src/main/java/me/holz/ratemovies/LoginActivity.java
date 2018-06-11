@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,7 +43,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(username.getText().toString().isEmpty() || password.getText().toString().isEmpty())
                 {
-                    Snackbar.make(view, "Invalid input. Enter username and password!", Snackbar.LENGTH_LONG).show();
+
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+
+
+                    Snackbar.make(view, "Invalid input. Enter username and password.", Snackbar.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -56,6 +64,11 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jo = new JSONObject(lj.result);
                         Snackbar.make(view, jo.getString("msg") + ", Username: " + jo.getString("username"), Snackbar.LENGTH_LONG).show();
 
+                        if (view != null) {
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
+
                         if(jo.getString("msg").equals("Success"))
                         {
                             SharedPreferences sharedPref = getSharedPreferences("key", Context.MODE_PRIVATE);
@@ -65,7 +78,10 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putInt("userid", jo.getInt("userid"));
                             editor.apply();
 
-                            onBackPressed();
+                            //onBackPressed();
+                            Intent intent = new Intent(getApplicationContext(), MainView.class);
+                            startActivity(intent);
+
                         }
 
                     } catch (InterruptedException e) {

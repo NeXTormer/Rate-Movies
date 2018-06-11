@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -41,9 +41,15 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String pw1 = password1.getText().toString();
                 String pw2 = password2.getText().toString();
-                if(!pw1.equals(pw2))
+                if(pw1.equals("") || pw2.equals(""))
                 {
-                    Snackbar.make(v, "The passwords don't match!", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(v, "The password is empty.", Snackbar.LENGTH_LONG).show();
+                    hideKeyboard(getCurrentFocus());
+                }
+                else if(!pw1.equals(pw2))
+                {
+                    Snackbar.make(v, "The passwords do not match.", Snackbar.LENGTH_LONG).show();
+                    hideKeyboard(getCurrentFocus());
                 }
                 else
                 {
@@ -70,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                         else
                         {
                             Snackbar.make(v, msg, Snackbar.LENGTH_LONG).show();
+                            hideKeyboard(getCurrentFocus());
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -107,5 +114,15 @@ public class RegisterActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void hideKeyboard(View view)
+    {
+
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 
 }
