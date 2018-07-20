@@ -74,5 +74,13 @@ alter table users modify apikey varchar(40);
 delete from users where id = 4;
 
 
+use htl_roommonitor;
+
+select * from measurements;
+desc measurements;
+
+INSERT INTO measurements (room, time, value, unit) VALUES ("peta", "11:11:11 11:11:11.111", 11, "Schubs");
+
+SELECT room, DATE_FORMAT(time, "%H:%i:%s") as time, value, unit FROM measurements ORDER BY time DESC LIMIT 1;
 
 

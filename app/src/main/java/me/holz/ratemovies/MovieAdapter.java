@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import me.holz.ratemovies.util.DownloadImageTask;
@@ -59,7 +61,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>
         holder.year.setText(movie.releasedate);
         holder.info.setText(movie.averagerating + "");
 
-        new DownloadImageTask(holder.image).execute(movie.image);
+        Picasso.get().load(movie.image).into(holder.image);
+
+
+        //not working as intended
+        //new DownloadImageTask(holder.image).execute(movie.image);
     }
 
     @Override
