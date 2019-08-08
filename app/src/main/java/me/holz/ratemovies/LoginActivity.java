@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
             new LoginStateController.OnLoginStateChangedListener() {
                 @Override
                 public void onLoginSucceeded() {
-                    // Here you could update UI to show login success
+                    System.out.println("WERNERFINDENIGLOGIN");
                 }
 
                 @Override

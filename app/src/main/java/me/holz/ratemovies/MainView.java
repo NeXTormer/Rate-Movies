@@ -2,6 +2,7 @@ package me.holz.ratemovies;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.snapchat.kit.sdk.SnapLogin;
+import com.snapchat.kit.sdk.login.models.MeData;
+import com.snapchat.kit.sdk.login.models.UserDataResponse;
+import com.snapchat.kit.sdk.login.networking.FetchUserDataCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +39,7 @@ public class MainView extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
 
@@ -49,15 +55,43 @@ public class MainView extends AppCompatActivity {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-
                         loadMovieDataFormServer();
-
-
-
                         swipelayout.setRefreshing(false);
+
+                        boolean isUserLoggedIn = SnapLogin.isUserLoggedIn(getApplicationContext());
+
+                        if(isUserLoggedIn)
+                        {
+                            String query = "{me{externalId}}";
+                            SnapLogin.fetchUserData(getApplicationContext(), query, null, new FetchUserDataCallback() {
+                                @Override
+                                public void onSuccess(@Nullable UserDataResponse userDataResponse) {
+                                    if (userDataResponse == null || userDataResponse.getData() == null) {
+                                        return;
+                                    }
+
+                                    MeData meData = userDataResponse.getData().getMe();
+                                    if (meData == null) {
+                                        return;
+                                    }
+
+                                    String userid = userDataResponse.getData().getMe().getExternalId();
+                                    setTitle("Rate-Movies (" + userid + ")");
+                                    System.out.println("External User ID: " + userid);
+                                }
+
+                                @Override
+                                public void onFailure(boolean isNetworkError, int statusCode) {
+                                    System.out.println("External User ID Error: " + statusCode);
+                                }
+                            });
+                        }
+
                     }
                 }
         );
+
+
 
 
 
