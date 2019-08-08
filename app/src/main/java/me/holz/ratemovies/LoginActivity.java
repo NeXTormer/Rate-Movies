@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,10 +22,12 @@ import me.holz.ratemovies.util.loadJSON;
 
 import com.snapchat.kit.sdk.SnapLogin;
 import com.snapchat.kit.sdk.core.controller.LoginStateController;
+import com.snapchat.kit.sdk.login.models.UserDataResponse;
+import com.snapchat.kit.sdk.login.networking.FetchUserDataCallback;
 
+public class LoginActivity extends AppCompatActivity implements LoginStateController.OnLoginStateChangedListener{
 
-
-public class LoginActivity extends AppCompatActivity {
+    private String scExternalID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(username.getText().toString().isEmpty() || password.getText().toString().isEmpty())
                 {
-
                     if (view != null) {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
-
-
                     Snackbar.make(view, "Invalid input. Enter username and password.", Snackbar.LENGTH_LONG).show();
                 }
                 else
@@ -80,10 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putInt("userid", jo.getInt("userid"));
                             editor.apply();
 
-                            //onBackPressed();
                             Intent intent = new Intent(getApplicationContext(), MainView.class);
                             startActivity(intent);
-
                         }
 
                     } catch (InterruptedException e) {
@@ -92,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
             }
         });
 
@@ -101,35 +98,52 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-
                 startActivity(intent);
-
             }
         });
 
+        SnapLogin.getLoginStateController(getApplicationContext()).addOnLoginStateChangedListener(this);
+        SnapLogin.getButton(getApplicationContext(), (ViewGroup) findViewById(R.id.login_constraintlayout));
+    }
 
-        View mLoginButton = SnapLogin.getButton(getApplicationContext(), (ViewGroup) findViewById(R.id.login_constraintlayout));
+    private void loadExternalId() {
+        String query = "{me{externalId}}";
+        SnapLogin.fetchUserData(getApplicationContext(), query, null, new FetchUserDataCallback() {
+            @Override
+            public void onSuccess(@Nullable UserDataResponse userDataResponse) {
+                if (userDataResponse == null || userDataResponse.hasError()) {
+                    return;
+                }
+                scExternalID = userDataResponse.getData().getMe().getExternalId();
+                System.out.println("Snapchat: External ID: " + scExternalID);
 
-        SnapLogin.getLoginStateController(getApplicationContext()).addOnLoginStateChangedListener(mLoginStateChangedListener);
 
+
+
+            }
+
+            @Override
+            public void onFailure(boolean isNetworkError, int statusCode) { }
+        });
+    }
+
+    @Override
+    public void onLoginSucceeded() {
+        loadExternalId();
+
+        Intent intent = new Intent(getApplicationContext(), MainView.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLoginFailed()
+    {
 
     }
 
-    final LoginStateController.OnLoginStateChangedListener mLoginStateChangedListener =
-            new LoginStateController.OnLoginStateChangedListener() {
-                @Override
-                public void onLoginSucceeded() {
-                    System.out.println("WERNERFINDENIGLOGIN");
-                }
+    @Override
+    public void onLogout()
+    {
 
-                @Override
-                public void onLoginFailed() {
-                    // Here you could update UI to show login failure
-                }
-
-                @Override
-                public void onLogout() {
-                    // Here you could update UI to reflect logged out state
-                }
-            };
+    }
 }

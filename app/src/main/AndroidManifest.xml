@@ -24,24 +24,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!--
+
                     Enter the parts of your redirect url below
                     e.g., if your redirect url is myapp://snap-kit/oauth2
                         android:scheme="myapp"
-                        android:host="snap-kit"
-                        android:path="oauth2"
-                !-->
+                android:host="snap-kit"
+                android:path="oauth2"
                 <data
                     android:scheme="ratemovies"
                     android:host="snap-kit"
                     android:path="/oauth2"
                     />
             </intent-filter>
+                !-->
 
+        </activity>
+        <activity
+            android:name="com.snapchat.kit.sdk.SnapKitActivity"
+            android:launchMode="singleTask"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="ratemovies"
+                    android:host="snap-kit"
+                    android:path="/oauth2"
+                    />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SingleMovie"

@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -36,6 +37,7 @@ public class MainView extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MovieAdapter mAdapter;
     private SwipeRefreshLayout swipelayout;
+    private String scExternalID;
 
 
     @Override
@@ -57,41 +59,19 @@ public class MainView extends AppCompatActivity {
                     public void onRefresh() {
                         loadMovieDataFormServer();
                         swipelayout.setRefreshing(false);
-
-                        boolean isUserLoggedIn = SnapLogin.isUserLoggedIn(getApplicationContext());
-
-                        if(isUserLoggedIn)
-                        {
-                            String query = "{me{externalId}}";
-                            SnapLogin.fetchUserData(getApplicationContext(), query, null, new FetchUserDataCallback() {
-                                @Override
-                                public void onSuccess(@Nullable UserDataResponse userDataResponse) {
-                                    if (userDataResponse == null || userDataResponse.getData() == null) {
-                                        return;
-                                    }
-
-                                    MeData meData = userDataResponse.getData().getMe();
-                                    if (meData == null) {
-                                        return;
-                                    }
-
-                                    String userid = userDataResponse.getData().getMe().getExternalId();
-                                    setTitle("Rate-Movies (" + userid + ")");
-                                    System.out.println("External User ID: " + userid);
-                                }
-
-                                @Override
-                                public void onFailure(boolean isNetworkError, int statusCode) {
-                                    System.out.println("External User ID Error: " + statusCode);
-                                }
-                            });
-                        }
-
                     }
                 }
         );
 
+        if (SnapLogin.isUserLoggedIn(getApplicationContext())) {
+            System.out.println("Snapchat: user already logged in");
+            loadExternalId();
 
+        }
+        else
+        {
+            System.out.println("Snapchat: user not logged in");
+        }
 
 
 
@@ -130,12 +110,30 @@ public class MainView extends AppCompatActivity {
         loadMovieDataFormServer();
     }
 
+    private void loadExternalId() {
+        String query = "{me{externalId}}";
+        SnapLogin.fetchUserData(getApplicationContext(), query, null, new FetchUserDataCallback() {
+            @Override
+            public void onSuccess(@Nullable UserDataResponse userDataResponse) {
+                if (userDataResponse == null || userDataResponse.hasError()) {
+                    return;
+                }
+                scExternalID = userDataResponse.getData().getMe().getExternalId();
+                System.out.println("Snapchat: External ID: " + scExternalID);
+            }
+
+            @Override
+            public void onFailure(boolean isNetworkError, int statusCode) {
+                // handle error
+            }
+        });
+    }
+
+
     @Override
     public void onResume()
     {
         super.onResume();
-
-
     }
 
 
